@@ -5,6 +5,6 @@ class TicketBook {
         Scanner input = new Scanner(System.in);
         int number = input.nextInt();
         System.out.println("Hellow " + number);
-        System.out.println("Testing");
+        System.out.println("Testing new");
     }
 }
