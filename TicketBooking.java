@@ -1,9 +1,16 @@
 import java.util.Scanner;
 
 class TicketBook {
+
     static Scanner input = new Scanner(System.in);
     static int totalFare;
     static int status;
+
+    ///Ticket price on each class
+    static int economyClass = 100000;
+    static int businessClass = 200000;
+    static int firstClass = 300000;
+    static int roundTrip = 100000;
 
     /// flight seats allocation depends on classes
     static int[][] firstClassSeats = new int[2][3];
@@ -12,6 +19,11 @@ class TicketBook {
     static int[] firstClassSeatNumber = new int[6];
     static int[] economyClassSeatNumber = new int[21];
     static int[] businessClassSeatNumber = new int[9];
+    static char theClass;
+    static int fare;
+    static int ticket;
+    static int totalTicketAmount;
+    static int row;
 
     public static void main(String[] args) {
         // 1. viewing the options
@@ -46,8 +58,14 @@ class TicketBook {
                 case 1:
                     // we call the flightClass method because the operations are done in that method
                     flightClasses();
+                    break;
                 case 2:
                     bookFlightSeats();/// Call book a flight seat function
+                    break;
+
+                case 3:
+                    viewEticket();///Call view eticket function
+                    break;
             }
 
         }
@@ -55,12 +73,6 @@ class TicketBook {
 
     // this method is dedicated to case no.1
     public static void flightClasses() {
-
-        // we spcify the prices of each class
-        int economyClass = 100000;
-        int businessClass = 200000;
-        int firstClass = 300000;
-        int roundTrip = 100000;
 
         // we print the prices for the user to see
         System.out.println("Economy class is 100,000IQD");
@@ -73,19 +85,17 @@ class TicketBook {
         char theClass = input.next().charAt(0);
 
         // we make if-else statements to differentiate between each class
-        if (theClass == 'a') {
+        if (Character.toLowerCase(theClass) == 'a') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
             int fare = input.nextInt(); /// Choose for user fare
-            System.out.println("Enter number of tickets");
-            int ticket = input.nextInt();
             if (fare == 1)
                 System.out.println("The total price of your flight  is " + economyClass + " IQD");
             else {
                 System.out.println("The total price of your flight with additional roundTrip  is " + (economyClass
                         + roundTrip) + " IQD");
             }
-        } else if (theClass == 'b') {
+        } else if (Character.toLowerCase(theClass) == 'b') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
             int fare = input.nextInt();
@@ -95,7 +105,7 @@ class TicketBook {
                 System.out.println("The total price of your flight with additional roundTrip  is " + (businessClass
                         + roundTrip) + " IQD");
             }
-        } else if (theClass == 'c') {
+        } else if (Character.toLowerCase(theClass) == 'c') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
             int fare = input.nextInt();
@@ -120,10 +130,6 @@ class TicketBook {
     /// this method book flight seat
     public static void bookFlightSeats() {
         // we spcify the prices of each class
-        int economyClass = 100000;
-        int businessClass = 200000;
-        int firstClass = 300000;
-        int roundTrip = 100000;
 
         // we print the prices for the user to see
         System.out.println("Economy class is 100,000IQD");
@@ -133,17 +139,17 @@ class TicketBook {
         System.out.println("-----+-----+-----");
         // here we ask the user to enter their class choice
         System.out.print("Write 'a' for Economy class, write 'b' for business class, or 'c' for first class: ");
-        char theClass = input.next().charAt(0);
+        theClass = input.next().charAt(0);
 
         // we make if-else statements to differentiate between each class
-        if (theClass == 'a') {
+        if (Character.toLowerCase(theClass) == 'a') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
-            int fare = input.nextInt(); /// Choose for user fare
+            fare = input.nextInt(); /// Choose for user fare
 
             /// Taking ticket input from user
             System.out.println("Enter number of ticket");
-            int ticket = input.nextInt();
+            ticket = input.nextInt();
             /// Check seats are reserved or empty
             checkSeatStatus(economyClassSeats);
 
@@ -159,55 +165,76 @@ class TicketBook {
             int row = input.nextInt();
 
             bookingSeatsProcess(row, economyClassSeatNumber, ticket);
-
             checkSeatStatus(economyClassSeats);
 
-            if (fare == 1)
-                System.out.println("The total price of your flight  is " + economyClass + " IQD");
-            else {
-                System.out.println("The total price of your flight with additional roundTrip  is " + (economyClass
-                        + roundTrip) + " IQD");
+            if (fare == 1) {
+                totalTicketAmount = (economyClass * ticket);
+            } else {
+                totalTicketAmount = (economyClass + roundTrip) * ticket;
             }
-        } else if (theClass == 'b') {
+
+        } else if (Character.toLowerCase(theClass) == 'b') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
             int fare = input.nextInt();
 
-            /// Taking row input from user
-            System.out.println("Enter your row number for seat");
-            int row = input.nextInt();
+            /// Taking ticket input from user
+            System.out.println("Enter number of ticket");
+            int ticket = input.nextInt();
+            /// Check seats are reserved or empty
+            checkSeatStatus(businessClassSeats);
 
             /// Taking seat input from user
             System.out.println("Enter your seat numbers:");
-            int seatNumber = input.nextInt(); /// Choose seat numbers
+            for (int num = 0; num < ticket; num++) {
+                int seat = input.nextInt();
+                businessClassSeatNumber[num] = seat; /// Choose seat numbers
+            }
+
+            /// Taking row input from user
+            System.out.println("Enter your row number for seat");
+            row = input.nextInt();
+
+            bookingSeatsProcess(row, businessClassSeatNumber, ticket);
 
             checkSeatStatus(businessClassSeats);
 
-            if (fare == 1)
-                System.out.println("The total price of your flight  is " + businessClass + " IQD");
-            else {
-                System.out.println("The total price of your flight with additional roundTrip  is " + (businessClass
-                        + roundTrip) + " IQD");
+            if (fare == 1) {
+                totalTicketAmount = (businessClass * ticket);
+            } else {
+                totalTicketAmount = (businessClass + roundTrip) * ticket;
             }
-        } else if (theClass == 'c') {
+        } else if (Character.toLowerCase(theClass) == 'c') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
             int fare = input.nextInt();
             checkSeatStatus(firstClassSeats);
 
+            /// Taking ticket input from user
+            System.out.println("Enter number of ticket");
+            int ticket = input.nextInt();
+            /// Check seats are reserved or empty
+            checkSeatStatus(firstClassSeats);
+
+            /// Taking seat input from user
+            System.out.println("Enter your seat numbers:");
+            for (int num = 0; num < ticket; num++) {
+                int seat = input.nextInt();
+                firstClassSeatNumber[num] = seat; /// Choose seat numbers
+            }
+
             /// Taking row input from user
             System.out.println("Enter your row number for seat");
             int row = input.nextInt();
 
-            /// Taking seat input from user
-            System.out.println("Enter your seat numbers:");
-            int seatNumber = input.nextInt(); /// Choose seat numbers
+            bookingSeatsProcess(row, firstClassSeatNumber, ticket);
 
-            if (fare == 1)
-                System.out.println("The total price of your flight  is " + firstClass + " IQD");
-            else {
-                System.out.println("The total price of your flight with additional roundTrip  is " + (firstClass
-                        + roundTrip) + " IQD");
+            checkSeatStatus(firstClassSeats);
+
+            if (fare == 1) {
+                totalTicketAmount = (firstClass * ticket);
+            } else {
+                totalTicketAmount = (firstClass + roundTrip) * ticket;
             }
 
         }
@@ -251,6 +278,72 @@ class TicketBook {
 
         }
 
+    }
+
+    ///this method to display booked e-ticket
+    public static void viewEticket() {
+
+        if (Character.toLowerCase(theClass) == 'a') {
+            System.out.println("Passenger Information");
+            System.out.println("------------------------------");
+            System.out.println("Flight Class : Economy");
+            System.out.println("");
+            System.out.println("Seat Details:");
+            System.out.println("------------------------------");
+            System.out.println("Number of Tickets Booked: " + ticket);
+            System.out.print("Seat Numbers: ");
+
+            for (int i = 0; i < ticket; i++) {
+                System.out.print(economyClassSeatNumber[i] + ",");
+            }
+
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Payment Summary:");
+            System.out.println("------------------------------");
+            System.out.println(
+                    "Total Amount Paid :" + totalTicketAmount + " IQD");
+        } else if (Character.toLowerCase(theClass) == 'b') {
+            System.out.println("Passenger Information");
+            System.out.println("------------------------------");
+            System.out.println("Flight Class : Business");
+            System.out.println("");
+            System.out.println("Seat Details:");
+            System.out.println("------------------------------");
+            System.out.println("Number of Tickets Booked: " + ticket);
+            System.out.print("Seat Numbers: ");
+
+            for (int i = 0; i < ticket; i++) {
+                System.out.print(businessClassSeatNumber[i] + ",");
+            }
+
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Payment Summary:");
+            System.out.println("------------------------------");
+            System.out.println(
+                    "Total Amount Paid :" + totalTicketAmount + " IQD");
+        } else if (Character.toLowerCase(theClass) == 'c') {
+            System.out.println("Passenger Information");
+            System.out.println("------------------------------");
+            System.out.println("Flight Class : First Class");
+            System.out.println("");
+            System.out.println("Seat Details:");
+            System.out.println("------------------------------");
+            System.out.println("Number of Tickets Booked: " + ticket);
+            System.out.print("Seat Numbers: ");
+
+            for (int i = 0; i < ticket; i++) {
+                System.out.print(firstClassSeatNumber[i] + ",");
+            }
+
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Payment Summary:");
+            System.out.println("------------------------------");
+            System.out.println(
+                    "Total Amount Paid :" + totalTicketAmount + " IQD");
+        }
     }
 
 }
