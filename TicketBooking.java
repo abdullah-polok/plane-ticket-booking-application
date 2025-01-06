@@ -62,9 +62,14 @@ class TicketBook {
                 case 2:
                     bookFlightSeats();/// Call book a flight seat function
                     break;
-
                 case 3:
                     viewEticket();///Call view eticket function
+                    break;
+                case 4:
+                    viewAllSeats();
+                    break;
+                case 5:
+                    flightCancellation();
                     break;
             }
 
@@ -344,6 +349,62 @@ class TicketBook {
             System.out.println(
                     "Total Amount Paid :" + totalTicketAmount + " IQD");
         }
+    }
+
+    ///this method to display all booked seats ascending or desceding order
+    public static void viewAllSeats() {
+        if (Character.toLowerCase(theClass) == 'a') {
+            System.out.println("Enter 'a' for ascending order or 'b' for descending order booked seat numbers:");
+            char orderSeat = input.next().charAt(0);
+            if (Character.toLowerCase(theClass) == 'a') {
+                System.out.println("Your ascending tickets list:");
+                for (int tick = 0; tick < ticket; tick++) {
+                    System.out.print(economyClassSeatNumber[tick] + " ");
+                }
+            } else {
+                System.out.println("Your  Descending  tickets list:");
+                for (int tick = ticket - 1; tick > 0; tick++) {
+                    System.out.print(economyClassSeatNumber[tick] + " ");
+                }
+
+            }
+        } else if (Character.toLowerCase(theClass) == 'b') {
+            System.out.println("Enter 'a' for ascending order or 'b' for descending order booked seat numbers:");
+            char orderSeat = input.next().charAt(0);
+            if (Character.toLowerCase(theClass) == 'a') {
+                System.out.println("Your ascending tickets list:");
+                for (int tick = 0; tick < ticket; tick++) {
+                    System.out.print(businessClassSeatNumber[tick] + " ");
+                }
+            } else {
+                System.out.println("Your  Descending  tickets list:");
+                for (int tick = ticket - 1; tick > 0; tick++) {
+                    System.out.print(businessClassSeatNumber[tick] + " ");
+                }
+
+            }
+        } else {
+            System.out.println("Enter 'a' for ascending order or 'b' for descending order booked seat numbers:");
+            char orderSeat = input.next().charAt(0);
+            if (Character.toLowerCase(theClass) == 'a') {
+                System.out.println("Your ascending tickets list:");
+                for (int tick = 0; tick < ticket; tick++) {
+                    System.out.print(firstClassSeatNumber[tick] + " ");
+                }
+            } else {
+                System.out.println("Your  Descending  tickets list:");
+                for (int tick = ticket - 1; tick > 0; tick++) {
+                    System.out.print(firstClassSeatNumber[tick] + " ");
+                }
+
+            }
+        }
+        System.out.println("");
+    }
+
+    ///this method to cancel flight 
+    public static void flightCancellation() {
+
     }
 
 }
