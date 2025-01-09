@@ -22,7 +22,7 @@ class TicketBook {
     static char theClass;
     static int fare;
     static int ticket;
-    static int totalTicketAmount;
+    static double totalTicketAmount;
     static int universalRow;
 
     public static void main(String[] args) {
@@ -462,13 +462,15 @@ class TicketBook {
 
         if (localtheClass == 'a') {
 
+            ///Taking class and cancellation seat numbers from user
             System.out.println("Enter your booked seat number for cancel:");
             int cancelFlight[] = new int[economyClassSeats[0].length];
 
-            for (int count = 0; count < cancelFlight.length; count++) {
+            for (int count = 0; count < ticket; count++) {
                 cancelFlight[count] = input.nextInt();
             }
 
+            ///Insert zero on that seat for cancelling the flight ticket
             for (int row = 0; row < economyClassSeats[0].length; row++) {
 
                 ///Check seats number equal to row index number 
@@ -476,28 +478,53 @@ class TicketBook {
                     economyClassSeats[universalRow][row] = 0;
 
             }
+
+            ///Deduct 2% from total purchase ticket;
+            totalTicketAmount = totalTicketAmount - (totalTicketAmount * 0.2);
+            System.out.println("Your total refund amount with 2% deduction is:" + totalTicketAmount);
+
         } else if (localtheClass == 'b') {
-            for (int row = 0; row < ticket; row++) {
-                for (int column = 0; column < businessClassSeats[0].length; column++) {
+            ///Taking class and cancellation seat numbers from user
+            System.out.println("Enter your booked seat number for cancel:");
+            int cancelFlight[] = new int[businessClassSeats[0].length];
 
-                    ///Check seats number equal to column index number 
-                    if (businessClassSeatNumber[row] == column + 1)
-                        businessClassSeats[universalRow][column] = 0;
+            for (int count = 0; count < ticket; count++) {
+                cancelFlight[count] = input.nextInt();
+            }
 
-                }
+            ///Insert zero on that seat for cancelling the flight ticket
+            for (int row = 0; row < businessClassSeats[0].length; row++) {
+
+                ///Check seats number equal to row index number 
+                if (businessClassSeatNumber[row] == cancelFlight[row])
+                    businessClassSeats[universalRow][row] = 0;
 
             }
+
+            ///Deduct 2% from total purchase ticket;
+            totalTicketAmount = totalTicketAmount - (totalTicketAmount * 0.2);
+            System.out.println("Your total refund amount with 2% deduction is:" + totalTicketAmount);
         } else {
-            for (int row = 0; row < ticket; row++) {
-                for (int column = 0; column < firstClassSeats[0].length; column++) {
+            ///Taking class and cancellation seat numbers from user
+            System.out.println("Enter your booked seat number for cancel:");
+            int cancelFlight[] = new int[firstClassSeats[0].length];
 
-                    ///Check seats number equal to column index number 
-                    if (firstClassSeatNumber[row] == column + 1)
-                        firstClassSeats[universalRow][column] = 0;
+            for (int count = 0; count < ticket; count++) {
+                cancelFlight[count] = input.nextInt();
+            }
 
-                }
+            ///Insert zero on that seat for cancelling the flight ticket
+            for (int row = 0; row < firstClassSeats[0].length; row++) {
+
+                ///Check seats number equal to row index number 
+                if (firstClassSeatNumber[row] == cancelFlight[row])
+                    firstClassSeats[universalRow][row] = 0;
 
             }
+
+            ///Deduct 2% from total purchase ticket;
+            totalTicketAmount = totalTicketAmount - (totalTicketAmount * 0.2);
+            System.out.println("Your total refund amount with 2% deduction is:" + totalTicketAmount);
         }
     }
 
