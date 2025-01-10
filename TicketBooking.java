@@ -71,6 +71,13 @@ class TicketBook {
                 case 5:
                     flightCancellation();
                     break;
+                case 8:
+                    displaySeatStatus();
+                    break;
+                case 9:
+                    viewReportOfBookedSeats();
+                    break;
+
             }
 
         }
@@ -525,6 +532,73 @@ class TicketBook {
             ///Deduct 2% from total purchase ticket;
             totalTicketAmount = totalTicketAmount - (totalTicketAmount * 0.2);
             System.out.println("Your total refund amount with 2% deduction is:" + totalTicketAmount);
+        }
+    }
+
+    ///this method to display seat status
+    public static void displaySeatStatus() {
+        System.out.print("Enter the flight class ('a' for Economy, 'b' for Business, 'c' for First): ");
+        char flightClass = input.next().charAt(0);
+
+        System.out.print("Enter the row number: ");
+        int row = input.nextInt();
+
+        System.out.print("Enter the seat number: ");
+        int seat = input.nextInt();
+
+        // Check the selected flight class
+        if (flightClass == 'a') {
+            if (economyClassSeats[row][seat] == 1) {
+                System.out.println("The seat is booked.");
+            } else {
+                System.out.println("The seat is available.");
+            }
+        } else if (flightClass == 'b') {
+            if (businessClassSeats[row][seat] == 1) {
+                System.out.println("The seat is booked.");
+            } else {
+                System.out.println("The seat is available.");
+            }
+        } else if (flightClass == 'c') {
+            if (firstClassSeats[row][seat] == 1) {
+                System.out.println("The seat is booked.");
+            } else {
+                System.out.println("The seat is available.");
+            }
+        } else {
+            System.out.println("Invalid flight class. Please enter 'a', 'b', or 'c'.");
+        }
+    }
+
+    // this method is viewing the report of the booked seats
+    public static void viewReportOfBookedSeats() {
+        System.out.println("---- Booked Seats Report ----");
+
+        System.out.println("Economy Class:");
+        for (int i = 0; i < economyClassSeats.length; i++) {
+            for (int j = 0; j < economyClassSeats[i].length; j++) {
+                if (economyClassSeats[i][j] == 1) {
+                    System.out.println("Row " + i + ", Seat " + j);
+                }
+            }
+        }
+
+        System.out.println("Business Class:");
+        for (int i = 0; i < businessClassSeats.length; i++) {
+            for (int j = 0; j < businessClassSeats[i].length; j++) {
+                if (businessClassSeats[i][j] == 1) {
+                    System.out.println("Row " + i + ", Seat " + j);
+                }
+            }
+        }
+
+        System.out.println("First Class:");
+        for (int i = 0; i < firstClassSeats.length; i++) {
+            for (int j = 0; j < firstClassSeats[i].length; j++) {
+                if (firstClassSeats[i][j] == 1) {
+                    System.out.println("Row " + i + ", Seat " + j);
+                }
+            }
         }
     }
 
