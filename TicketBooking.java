@@ -63,13 +63,16 @@ class TicketBook {
                     bookFlightSeats();/// Call book a flight seat function
                     break;
                 case 3:
-                    viewEticket();///Call view eticket function
+                    viewEticket();///Call view e-ticket function
                     break;
                 case 4:
                     viewAllSeats();
                     break;
                 case 5:
                     flightCancellation();
+                    break;
+                case 7:
+                    checkAllSeatStatus();
                     break;
                 case 8:
                     displaySeatStatus();
@@ -159,11 +162,12 @@ class TicketBook {
             System.out.println("1.One way\n2.RoundTrip");
             fare = input.nextInt(); /// Choose for user fare
 
+            /// Check seats are reserved or empty
+            checkAllSeatStatus();
+
             /// Taking ticket input from user
             System.out.println("Enter number of ticket");
             ticket = input.nextInt();
-            /// Check seats are reserved or empty
-            checkSeatStatus(economyClassSeats);
 
             /// Taking seat input from user
             System.out.println("Enter your seat numbers:");
@@ -177,7 +181,8 @@ class TicketBook {
             universalRow = input.nextInt();
 
             bookingSeatsProcess(universalRow, economyClassSeatNumber, ticket);
-            checkSeatStatus(economyClassSeats);
+            /// Check seats are reserved or empty
+            checkAllSeatStatus();
 
             if (fare == 1) {
                 totalTicketAmount = (economyClass * ticket);
@@ -188,13 +193,14 @@ class TicketBook {
         } else if (Character.toLowerCase(theClass) == 'b') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
-            int fare = input.nextInt();
+            fare = input.nextInt();
+
+            /// Check seats are reserved or empty
+            checkAllSeatStatus();
 
             /// Taking ticket input from user
             System.out.println("Enter number of ticket");
-            int ticket = input.nextInt();
-            /// Check seats are reserved or empty
-            checkSeatStatus(businessClassSeats);
+            ticket = input.nextInt();
 
             /// Taking seat input from user
             System.out.println("Enter your seat numbers:");
@@ -209,7 +215,8 @@ class TicketBook {
 
             bookingSeatsProcess(universalRow, businessClassSeatNumber, ticket);
 
-            checkSeatStatus(businessClassSeats);
+            /// Check seats are reserved or empty
+            checkAllSeatStatus();
 
             if (fare == 1) {
                 totalTicketAmount = (businessClass * ticket);
@@ -219,14 +226,14 @@ class TicketBook {
         } else if (Character.toLowerCase(theClass) == 'c') {
             System.out.println("Choose the type of fare:");
             System.out.println("1.One way\n2.RoundTrip");
-            int fare = input.nextInt();
-            checkSeatStatus(firstClassSeats);
+            fare = input.nextInt();
+
+            /// Check seats are reserved or empty
+            checkAllSeatStatus();
 
             /// Taking ticket input from user
             System.out.println("Enter number of ticket");
-            int ticket = input.nextInt();
-            /// Check seats are reserved or empty
-            checkSeatStatus(firstClassSeats);
+            ticket = input.nextInt();
 
             /// Taking seat input from user
             System.out.println("Enter your seat numbers:");
@@ -241,7 +248,7 @@ class TicketBook {
 
             bookingSeatsProcess(universalRow, firstClassSeatNumber, ticket);
 
-            checkSeatStatus(firstClassSeats);
+            checkAllSeatStatus();
 
             if (fare == 1) {
                 totalTicketAmount = (firstClass * ticket);
@@ -261,43 +268,43 @@ class TicketBook {
     }
 
     // this method to display seat layout
-    public static void checkSeatStatus(int[][] seats) {
+    public static void checkAllSeatStatus() {
         if (theClass == 'a') {
-            int rows = seats.length;
-            int columns = seats[0].length;
+            int rows = economyClassSeats.length;
+            int columns = economyClassSeats[0].length;
 
             System.out.println("Seat Layout:");
             System.out.println("A B C D E F");
             System.out.println("_ _ _ _ _ _");
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
-                    System.out.print(seats[i][j] + " "); // display seat status
+                    System.out.print(economyClassSeats[i][j] + " "); // display seat status
                 }
                 System.out.println();
             }
         } else if (theClass == 'b') {
-            int rows = seats.length;
-            int columns = seats[0].length;
+            int rows = businessClassSeats.length;
+            int columns = businessClassSeats[0].length;
 
             System.out.println("Seat Layout:");
             System.out.println("A B C D ");
             System.out.println("_ _ _ _ ");
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
-                    System.out.print(seats[i][j] + " "); // display seat status
+                    System.out.print(businessClassSeats[i][j] + " "); // display seat status
                 }
                 System.out.println();
             }
         } else {
-            int rows = seats.length;
-            int columns = seats[0].length;
+            int rows = firstClassSeats.length;
+            int columns = firstClassSeats[0].length;
 
             System.out.println("Seat Layout:");
             System.out.println("A B");
             System.out.println("_ _");
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
-                    System.out.print(seats[i][j] + " "); // display seat status
+                    System.out.print(firstClassSeats[i][j] + " "); // display seat status
                 }
                 System.out.println();
             }
@@ -413,46 +420,46 @@ class TicketBook {
     ///this method to display all booked seats ascending or desceding order
     public static void viewAllSeats() {
         if (Character.toLowerCase(theClass) == 'a') {
-            System.out.println("Enter 'a' for ascending order or 'b' for descending order booked seat numbers:");
+            System.out.println("Enter 'a' for ascending order or 'd' for descending order booked seat numbers:");
             char orderSeat = input.next().charAt(0);
-            if (Character.toLowerCase(theClass) == 'a') {
+            if (orderSeat == 'a') {
                 System.out.println("Your ascending tickets list:");
                 for (int tick = 0; tick < ticket; tick++) {
                     System.out.print(economyClassSeatNumber[tick] + " ");
                 }
             } else {
                 System.out.println("Your  Descending  tickets list:");
-                for (int tick = ticket - 1; tick > 0; tick++) {
+                for (int tick = ticket - 1; tick >= 0; tick++) {
                     System.out.print(economyClassSeatNumber[tick] + " ");
                 }
 
             }
         } else if (Character.toLowerCase(theClass) == 'b') {
-            System.out.println("Enter 'a' for ascending order or 'b' for descending order booked seat numbers:");
+            System.out.println("Enter 'a' for ascending order or 'd' for descending order booked seat numbers:");
             char orderSeat = input.next().charAt(0);
-            if (Character.toLowerCase(theClass) == 'a') {
+            if (orderSeat == 'a') {
                 System.out.println("Your ascending tickets list:");
                 for (int tick = 0; tick < ticket; tick++) {
                     System.out.print(businessClassSeatNumber[tick] + " ");
                 }
             } else {
                 System.out.println("Your  Descending  tickets list:");
-                for (int tick = ticket - 1; tick > 0; tick++) {
+                for (int tick = ticket - 1; tick >= 0; tick++) {
                     System.out.print(businessClassSeatNumber[tick] + " ");
                 }
 
             }
         } else {
-            System.out.println("Enter 'a' for ascending order or 'b' for descending order booked seat numbers:");
+            System.out.println("Enter 'a' for ascending order or 'd' for descending order booked seat numbers:");
             char orderSeat = input.next().charAt(0);
-            if (Character.toLowerCase(theClass) == 'a') {
+            if (orderSeat == 'a') {
                 System.out.println("Your ascending tickets list:");
                 for (int tick = 0; tick < ticket; tick++) {
                     System.out.print(firstClassSeatNumber[tick] + " ");
                 }
             } else {
                 System.out.println("Your  Descending  tickets list:");
-                for (int tick = ticket - 1; tick > 0; tick++) {
+                for (int tick = ticket - 1; tick >= 0; tick++) {
                     System.out.print(firstClassSeatNumber[tick] + " ");
                 }
 
