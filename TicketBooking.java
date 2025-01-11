@@ -67,7 +67,7 @@ class TicketBook {
                     viewEticket();///Call view e-ticket function
                     break;
                 case 4:
-                    viewAllSeats();
+                    viewAllBookedSeats();
                     break;
                 case 5:
                     flightCancellation();
@@ -152,14 +152,7 @@ class TicketBook {
 
     /// this method book flight seat
     public static void bookFlightSeats() {
-        // we spcify the prices of each class
 
-        // we print the prices for the user to see
-        System.out.println("Economy class is 100,000IQD");
-        System.out.println("Business class is 200,000IQD");
-        System.out.println("First class class is 300,000IQD");
-        System.out.println("and additional roundtrip is 100,000IQD");
-        System.out.println("-----+-----+-----");
         // here we ask the user to enter their class choice
         System.out.print("Write 'a' for Economy class, write 'b' for business class, or 'c' for first class: ");
         theClass = input.next().charAt(0);
@@ -177,6 +170,10 @@ class TicketBook {
             System.out.println("Enter number of ticket");
             ticket = input.nextInt();
 
+            /// Taking row input from user
+            System.out.println("Enter your row number for seat");
+            universalRow = input.nextInt() - 1;
+
             /// Taking seat input from user
             System.out.println("Enter your seat numbers:");
             for (int num = 0; num < ticket; num++) {
@@ -184,13 +181,8 @@ class TicketBook {
                 economyClassSeatNumber[num] = seat; /// Choose seat numbers
             }
 
-            /// Taking row input from user
-            System.out.println("Enter your row number for seat");
-            universalRow = input.nextInt();
-
+            ///set booking seat into the 2D array
             bookingSeatsProcess(universalRow, economyClassSeatNumber, ticket);
-            /// Check seats are reserved or empty
-            checkAllSeatStatus();
 
             if (fare == 1) {
                 totalTicketAmount = (economyClass * ticket);
@@ -210,6 +202,10 @@ class TicketBook {
             System.out.println("Enter number of ticket");
             ticket = input.nextInt();
 
+            /// Taking row input from user
+            System.out.println("Enter your row number for seat");
+            universalRow = input.nextInt() - 1;
+
             /// Taking seat input from user
             System.out.println("Enter your seat numbers:");
             for (int num = 0; num < ticket; num++) {
@@ -217,14 +213,8 @@ class TicketBook {
                 businessClassSeatNumber[num] = seat; /// Choose seat numbers
             }
 
-            /// Taking row input from user
-            System.out.println("Enter your row number for seat");
-            universalRow = input.nextInt();
-
+            ///set booking seat into the 2D array
             bookingSeatsProcess(universalRow, businessClassSeatNumber, ticket);
-
-            /// Check seats are reserved or empty
-            checkAllSeatStatus();
 
             if (fare == 1) {
                 totalTicketAmount = (businessClass * ticket);
@@ -243,6 +233,10 @@ class TicketBook {
             System.out.println("Enter number of ticket");
             ticket = input.nextInt();
 
+            /// Taking row input from user
+            System.out.println("Enter your row number for seat");
+            universalRow = input.nextInt() - 1;
+
             /// Taking seat input from user
             System.out.println("Enter your seat numbers:");
             for (int num = 0; num < ticket; num++) {
@@ -250,13 +244,8 @@ class TicketBook {
                 firstClassSeatNumber[num] = seat; /// Choose seat numbers
             }
 
-            /// Taking row input from user
-            System.out.println("Enter your row number for seat");
-            universalRow = input.nextInt();
-
+            ///set booking seat into the 2D array
             bookingSeatsProcess(universalRow, firstClassSeatNumber, ticket);
-
-            checkAllSeatStatus();
 
             if (fare == 1) {
                 totalTicketAmount = (firstClass * ticket);
@@ -266,18 +255,12 @@ class TicketBook {
 
         }
 
-        // if the user tries to write any letter other than the valid ones he/she will
-        // get an error
-        else {
-            System.out.println("invalid letter, try again...");
-        }
-
         System.out.println("");
     }
 
     // this method to display seat layout
     public static void checkAllSeatStatus() {
-        if (theClass == 'a') {
+        if (Character.toLowerCase(theClass) == 'a') {
             int rows = economyClassSeats.length;
             int columns = economyClassSeats[0].length;
 
@@ -290,7 +273,7 @@ class TicketBook {
                 }
                 System.out.println();
             }
-        } else if (theClass == 'b') {
+        } else if (Character.toLowerCase(theClass) == 'b') {
             int rows = businessClassSeats.length;
             int columns = businessClassSeats[0].length;
 
@@ -322,7 +305,7 @@ class TicketBook {
     // this method to insert seat numbers seat layout
     public static void bookingSeatsProcess(int userRowNumber, int commonClass[], int tickets) {
 
-        if (theClass == 'a') {
+        if (Character.toLowerCase(theClass) == 'a') {
             for (int row = 0; row < tickets; row++) {
                 for (int column = 0; column < economyClassSeats[0].length; column++) {
 
@@ -333,7 +316,7 @@ class TicketBook {
                 }
 
             }
-        } else if (theClass == 'b') {
+        } else if (Character.toLowerCase(theClass) == 'b') {
             for (int row = 0; row < tickets; row++) {
                 for (int column = 0; column < businessClassSeats[0].length; column++) {
 
@@ -370,6 +353,7 @@ class TicketBook {
             System.out.println("Seat Details:");
             System.out.println("------------------------------");
             System.out.println("Number of Tickets Booked: " + ticket);
+            System.out.println("Row number: " + (universalRow + 1));
             System.out.print("Seat Numbers: ");
 
             for (int i = 0; i < ticket; i++) {
@@ -390,6 +374,7 @@ class TicketBook {
             System.out.println("Seat Details:");
             System.out.println("------------------------------");
             System.out.println("Number of Tickets Booked: " + ticket);
+            System.out.println("Row number: " + (universalRow + 1));
             System.out.print("Seat Numbers: ");
 
             for (int i = 0; i < ticket; i++) {
@@ -410,6 +395,7 @@ class TicketBook {
             System.out.println("Seat Details:");
             System.out.println("------------------------------");
             System.out.println("Number of Tickets Booked: " + ticket);
+            System.out.println("Row number: " + (universalRow + 1));
             System.out.print("Seat Numbers: ");
 
             for (int i = 0; i < ticket; i++) {
@@ -422,12 +408,14 @@ class TicketBook {
             System.out.println("------------------------------");
             System.out.println(
                     "Total Amount Paid :" + totalTicketAmount + " IQD");
+        } else {
+            System.out.println("No e-ticket data is remaining,since you have canceled");
         }
     }
 
     ///this method to display all booked seats ascending or desceding order
-    public static void viewAllSeats() {
-        if (Character.toLowerCase(theClass) == 'a') {
+    public static void viewAllBookedSeats() {
+        if (theClass == 'a') {
             System.out.println("Enter 'a' for ascending order or 'd' for descending order booked seat numbers:");
             char orderSeat = input.next().charAt(0);
             if (orderSeat == 'a') {
@@ -437,12 +425,12 @@ class TicketBook {
                 }
             } else {
                 System.out.println("Your  Descending  tickets list:");
-                for (int tick = ticket - 1; tick >= 0; tick++) {
+                for (int tick = ticket - 1; tick >= 0; tick--) {
                     System.out.print(economyClassSeatNumber[tick] + " ");
                 }
 
             }
-        } else if (Character.toLowerCase(theClass) == 'b') {
+        } else if (theClass == 'b') {
             System.out.println("Enter 'a' for ascending order or 'd' for descending order booked seat numbers:");
             char orderSeat = input.next().charAt(0);
             if (orderSeat == 'a') {
@@ -452,7 +440,7 @@ class TicketBook {
                 }
             } else {
                 System.out.println("Your  Descending  tickets list:");
-                for (int tick = ticket - 1; tick >= 0; tick++) {
+                for (int tick = ticket - 1; tick >= 0; tick--) {
                     System.out.print(businessClassSeatNumber[tick] + " ");
                 }
 
@@ -467,7 +455,7 @@ class TicketBook {
                 }
             } else {
                 System.out.println("Your  Descending  tickets list:");
-                for (int tick = ticket - 1; tick >= 0; tick++) {
+                for (int tick = ticket - 1; tick >= 0; tick--) {
                     System.out.print(firstClassSeatNumber[tick] + " ");
                 }
 
@@ -482,7 +470,7 @@ class TicketBook {
         System.out.print("Write 'a' for Economy class, write 'b' for business class, or 'c' for first class: ");
         char localtheClass = input.next().charAt(0);
 
-        if (localtheClass == 'a') {
+        if (Character.toLowerCase(localtheClass) == 'a') {
 
             ///Taking class and cancellation seat numbers from user
             System.out.println("Enter your booked seat number for cancel:");
@@ -505,7 +493,7 @@ class TicketBook {
             totalTicketAmount = totalTicketAmount - (totalTicketAmount * 0.2);
             System.out.println("Your total refund amount with 2% deduction is:" + totalTicketAmount);
 
-        } else if (localtheClass == 'b') {
+        } else if (Character.toLowerCase(localtheClass) == 'b') {
             ///Taking class and cancellation seat numbers from user
             System.out.println("Enter your booked seat number for cancel:");
             int cancelFlight[] = new int[businessClassSeats[0].length];
@@ -548,12 +536,16 @@ class TicketBook {
             totalTicketAmount = totalTicketAmount - (totalTicketAmount * 0.2);
             System.out.println("Your total refund amount with 2% deduction is:" + totalTicketAmount);
         }
+
+        // Set a default value after cancelling the flights;
+        theClass = ' ';
+
     }
 
     ///This method is for current status of seat arrangement
     public static void currentStatusSeat() {
 
-        if (theClass == 'a') {
+        if (Character.toLowerCase(theClass) == 'a') {
             for (int outer = 0; outer < economyClassSeats.length; outer++) {
 
                 for (int inner = 0; inner < economyClassSeats[0].length; inner++) {
@@ -564,7 +556,7 @@ class TicketBook {
                 }
                 System.out.println("");
             }
-        } else if (theClass == 'b') {
+        } else if (Character.toLowerCase(theClass) == 'b') {
             for (int outer = 0; outer < businessClassSeats.length; outer++) {
 
                 for (int inner = 0; inner < businessClassSeats[0].length; inner++) {
@@ -596,26 +588,26 @@ class TicketBook {
         char flightClass = input.next().charAt(0);
 
         System.out.print("Enter the row number: ");
-        int row = input.nextInt();
+        int localRow = input.nextInt() - 1;
 
         System.out.print("Enter the seat number: ");
-        int seat = input.nextInt();
+        int seat = input.nextInt() - 1;
 
         // Check the selected flight class
-        if (flightClass == 'a') {
-            if (economyClassSeats[row][seat] == 1) {
+        if (Character.toLowerCase(flightClass) == 'a') {
+            if (economyClassSeats[localRow][seat] == 1) {
                 System.out.println("The seat is booked.");
             } else {
                 System.out.println("The seat is available.");
             }
-        } else if (flightClass == 'b') {
-            if (businessClassSeats[row][seat] == 1) {
+        } else if (Character.toLowerCase(flightClass) == 'b') {
+            if (businessClassSeats[localRow][seat] == 1) {
                 System.out.println("The seat is booked.");
             } else {
                 System.out.println("The seat is available.");
             }
-        } else if (flightClass == 'c') {
-            if (firstClassSeats[row][seat] == 1) {
+        } else if (Character.toLowerCase(flightClass) == 'c') {
+            if (firstClassSeats[localRow][seat] == 1) {
                 System.out.println("The seat is booked.");
             } else {
                 System.out.println("The seat is available.");
@@ -629,29 +621,31 @@ class TicketBook {
     public static void viewReportOfBookedSeats() {
         System.out.println("---- Booked Seats Report ----");
 
-        System.out.println("Economy Class:");
-        for (int i = 0; i < economyClassSeats.length; i++) {
-            for (int j = 0; j < economyClassSeats[i].length; j++) {
-                if (economyClassSeats[i][j] == 1) {
-                    System.out.println("Row " + i + ", Seat " + j);
+        if (Character.toLowerCase(theClass) == 'a') {
+            System.out.println("Economy Class:");
+            for (int i = 0; i < economyClassSeats.length; i++) {
+                for (int j = 0; j < economyClassSeats[i].length; j++) {
+                    if (economyClassSeats[i][j] == 1) {
+                        System.out.println("Row " + i + ", Seat " + (j + 1));
+                    }
                 }
             }
-        }
-
-        System.out.println("Business Class:");
-        for (int i = 0; i < businessClassSeats.length; i++) {
-            for (int j = 0; j < businessClassSeats[i].length; j++) {
-                if (businessClassSeats[i][j] == 1) {
-                    System.out.println("Row " + i + ", Seat " + j);
+        } else if (Character.toLowerCase(theClass) == 'b') {
+            System.out.println("Business Class:");
+            for (int i = 0; i < businessClassSeats.length; i++) {
+                for (int j = 0; j < businessClassSeats[i].length; j++) {
+                    if (businessClassSeats[i][j] == 1) {
+                        System.out.println("Row " + i + ", Seat " + (j + 1));
+                    }
                 }
             }
-        }
-
-        System.out.println("First Class:");
-        for (int i = 0; i < firstClassSeats.length; i++) {
-            for (int j = 0; j < firstClassSeats[i].length; j++) {
-                if (firstClassSeats[i][j] == 1) {
-                    System.out.println("Row " + i + ", Seat " + j);
+        } else {
+            System.out.println("First Class:");
+            for (int i = 0; i < firstClassSeats.length; i++) {
+                for (int j = 0; j < firstClassSeats[i].length; j++) {
+                    if (firstClassSeats[i][j] == 1) {
+                        System.out.println("Row " + i + ", Seat " + (j + 1));
+                    }
                 }
             }
         }
