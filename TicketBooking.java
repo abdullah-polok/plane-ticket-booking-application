@@ -26,13 +26,14 @@ class TicketBook {
     static int universalRow;
 
     public static void main(String[] args) {
+        boolean repeat = true;
         // 1. viewing the options
         /*
          * but firstly we need an infinite for loop so the options will be shown
          * until exist is chosen
          */
         // displaySeats(seatBluePrint);
-        for (;;) {
+        while (repeat) {
 
             System.out.println("-----+-----+-----");
             System.out.println("");
@@ -71,6 +72,9 @@ class TicketBook {
                 case 5:
                     flightCancellation();
                     break;
+                case 6:
+                    currentStatusSeat();
+                    break;
                 case 7:
                     checkAllSeatStatus();
                     break;
@@ -79,6 +83,10 @@ class TicketBook {
                     break;
                 case 9:
                     viewReportOfBookedSeats();
+                    break;
+                case 10:
+                    System.out.println("Thank you for using the program.");
+                    repeat = false;
                     break;
 
             }
@@ -540,6 +548,46 @@ class TicketBook {
             totalTicketAmount = totalTicketAmount - (totalTicketAmount * 0.2);
             System.out.println("Your total refund amount with 2% deduction is:" + totalTicketAmount);
         }
+    }
+
+    ///This method is for current status of seat arrangement
+    public static void currentStatusSeat() {
+
+        if (theClass == 'a') {
+            for (int outer = 0; outer < economyClassSeats.length; outer++) {
+
+                for (int inner = 0; inner < economyClassSeats[0].length; inner++) {
+                    if (economyClassSeats[outer][inner] == 1) {
+                        System.out.print("X" + " ");
+                    } else
+                        System.out.print("@" + " ");
+                }
+                System.out.println("");
+            }
+        } else if (theClass == 'b') {
+            for (int outer = 0; outer < businessClassSeats.length; outer++) {
+
+                for (int inner = 0; inner < businessClassSeats[0].length; inner++) {
+                    if (businessClassSeats[outer][inner] == 1) {
+                        System.out.print("X" + " ");
+                    } else
+                        System.out.print("@" + " ");
+                }
+                System.out.println("");
+            }
+        } else {
+            for (int outer = 0; outer < firstClassSeats.length; outer++) {
+
+                for (int inner = 0; inner < firstClassSeats[0].length; inner++) {
+                    if (firstClassSeats[outer][inner] == 1) {
+                        System.out.print("X" + " ");
+                    } else
+                        System.out.print("@" + " ");
+                }
+                System.out.println("");
+            }
+        }
+
     }
 
     ///this method to display seat status
